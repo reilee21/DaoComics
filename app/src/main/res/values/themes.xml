@@ -1,0 +1,28 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Theme.DaoComics" parent="Theme.MaterialComponents.Light">
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">#00FFFFFF</item>
+        <item name="colorPrimaryVariant">#00FFFFFF</item>
+        <item name="colorOnPrimary">#00FFFFFF</item>
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">#00FFFFFF</item>
+        <item name="colorSecondaryVariant">#00FFFFFF</item>
+        <item name="colorOnSecondary">#00FFFFFF</item>
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor">#00FFFFFF</item>
+        <!-- Customize your theme here. -->
+        <item name="android:textColorPrimary">@color/xanhduong</item>
+        <item name="android:fontFamily">@font/poppins</item>
+    </style>
+    <style name="Theme.DaoComics2" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        
+    </style>
+    <style name="Theme.DaoComics3" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="android:itemBackground">@color/white</item>
+    </style>
+    <style name="CustomText" parent="@android:style/TextAppearance.Widget.IconMenu.Item">
+        <item name="android:textSize">20sp</item>
+    </style>
+
+</resources>

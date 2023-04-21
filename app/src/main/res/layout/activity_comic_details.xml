@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.comic.ComicDetailsActivity"
+    android:layout_marginTop="18dp"
+    android:paddingStart="18dp"
+    android:paddingEnd="18dp"
+    >
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+    <ImageButton
+        android:contentDescription="back"
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:id="@+id/btnBack"
+        android:src="@drawable/baseline_arrow_back_24"
+        android:backgroundTint="@color/white"
+        android:scaleX="1.5"
+        android:scaleY="1.5"
+        />
+
+    <ImageButton
+        android:contentDescription="like"
+        android:id="@+id/btnFav"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:backgroundTint="@color/white"
+        android:scaleX="0.7"
+        android:scaleY="0.7"
+        android:src="@drawable/favourite"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView"
+        android:layout_width="180dp"
+        android:layout_height="250dp"
+        app:cardCornerRadius="18dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btnFav">
+
+        <ImageView
+            android:id="@+id/imgComic"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            android:src="@drawable/imgsignup"
+            app:layout_constraintTop_toBottomOf="@+id/imageButton" />
+    </androidx.cardview.widget.CardView>
+
+    <TextView
+        android:paddingLeft="12dp"
+        android:id="@+id/tvComicName"
+        android:layout_width="wrap_content"
+        android:layout_height="32dp"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/open_sans_regular"
+        android:text="Comic name"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cardView" />
+
+
+<com.google.android.material.bottomnavigation.BottomNavigationView
+    android:layout_width="match_parent"
+    android:layout_height="48dp"
+    android:paddingBottom="4dp"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:itemTextColor="@color/colorbottomitem2"
+    app:itemTextAppearanceActive="@style/CustomText"
+    app:itemTextAppearanceInactive="@style/CustomText"
+    android:outlineAmbientShadowColor="@color/white"
+    android:outlineSpotShadowColor="@color/white"
+    app:layout_constraintTop_toBottomOf="@+id/tvComicName"
+    app:menu="@menu/menu_cmdt"
+    android:id="@+id/navMenuTab"
+
+    />
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/fragDes_Chap"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/navMenuTab"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.core.widget.NestedScrollView>
