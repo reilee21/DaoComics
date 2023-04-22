@@ -15,14 +15,15 @@
         android:theme="@style/Theme.DaoComics"
         tools:targetApi="31">
         <activity
+            android:name=".SettingActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.comic_read.ReadComicActivity"
             android:exported="false" />
         <activity
             android:name=".ui.comic.ComicDetailsActivity"
             android:exported="true"
-            android:theme="@style/Theme.DaoComics3">
-
-        </activity>
+            android:theme="@style/Theme.DaoComics3"></activity>
         <activity
             android:name=".ui.login_register.RegisterActivity"
             android:exported="false"
@@ -35,7 +36,6 @@
             android:name=".SplashScreenActivity"
             android:exported="true"
             android:theme="@style/Theme.DaoComics2">
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -44,7 +44,7 @@
         </activity>
         <activity
             android:name=".MainActivity"
-            android:exported="false"></activity>
+            android:exported="false" />
     </application>
 
 </manifest>
