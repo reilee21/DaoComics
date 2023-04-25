@@ -5,6 +5,21 @@ import java.io.Serializable;
 public class Comic implements Serializable {
 
     String name;
+    String desciption;
+    String imageThumb;
+    String genre;
+    public Comic( String name, String desciption, String imageThumb, String genre) {
+        this.name = name;
+        this.desciption = desciption;
+        this.imageThumb = imageThumb;
+        this.genre = genre;
+    }
+    public Comic() {
+    }
+
+
+
+
 
     public String getName() {
         return name;
@@ -38,17 +53,5 @@ public class Comic implements Serializable {
         this.genre = genre;
     }
 
-    String desciption;
-    String imageThumb;
-    String genre;
 
-    public Comic( String name, String desciption, String imageThumb, String genre) {
-        this.name = name;
-        this.desciption = desciption;
-        this.imageThumb = imageThumb;
-        this.genre = genre;
-    }
-
-    public Comic() {
-    }
 }

@@ -77,7 +77,9 @@
             android:layout_marginLeft="18dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btnTheLoai">
+            app:layout_constraintTop_toBottomOf="@+id/btnTheLoai"
+            android:scrollbars="none"
+            >
 
             <LinearLayout
                 android:layout_width="wrap_content"

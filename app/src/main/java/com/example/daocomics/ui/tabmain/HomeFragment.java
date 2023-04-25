@@ -32,7 +32,7 @@ public class HomeFragment extends Fragment{
     ComicAdapter comicAdapter;
     ArrayList<Comic> comicsList;
     TextView tvHello;
-    private final Gson gs = new Gson();
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -44,7 +44,7 @@ public class HomeFragment extends Fragment{
         //add sample comic list
         addDataSample();
         comicAdapter = new ComicAdapter(comicsList);
-        GridLayoutManager grv = new GridLayoutManager(getActivity(),2);
+        GridLayoutManager grv = new GridLayoutManager(getActivity(),3);
         rcvHome.setAdapter(comicAdapter);
         rcvHome.setLayoutManager(grv);
 
@@ -54,9 +54,8 @@ public class HomeFragment extends Fragment{
 
     private void getUser() {
         SharedPreferences shget = getActivity().getSharedPreferences(Utils.SHARE_PREFERENCES_APP, Context.MODE_PRIVATE);
-        String usPref = shget.getString(Utils.KEY_USER,null);
-        User user = gs.fromJson(usPref,User.class);
-        tvHello.setText("Xin chào " + user.getName());
+        if(!shget.getString(Utils.ACCOUNT_RMB_USER_NAME,"").isEmpty())
+            tvHello.setText("Xin chào " + shget.getString(Utils.ACCOUNT_RMB_USER_NAME,""));
     }
 
 

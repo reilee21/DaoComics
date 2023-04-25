@@ -1,37 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SettingActivity"
-    tools:openDrawer="end">
+    tools:context=".ui.setting.SettingActivity">
+    <ImageButton
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:src="@drawable/baseline_arrow_back_24"
+        android:background="#00000000"
+        android:id="@+id/btnBack_setting"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:contentDescription="back"
+        android:layout_marginTop="24dp"
+        android:padding="8dp"
+        android:scaleX="1.5"
+        android:scaleY="1.5"
+        />
+    <FrameLayout
+        app:layout_constraintTop_toBottomOf="@id/btnBack_setting"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/setting_frag"/>
 
-
-    <com.google.android.material.navigation.NavigationView
-        android:id="@+id/navmenu"
-        android:layout_width="200dp"
-        android:layout_height="match_parent"
-        android:layout_gravity="end"
-        android:layout_marginTop="58dp"
-        app:menu="@menu/drawer_menu"
-        android:background="@drawable/bg_edt">
-
-
-        <TextView
-            android:id="@+id/textView6"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Chào mừng bạn đến với"
-            android:layout_marginTop="550dp"
-            android:gravity="center"/>
-        <ImageView
-            android:id="@+id/imageView"
-            android:layout_width="200dp"
-            android:layout_height="32dp"
-            android:layout_marginTop="580dp"
-            app:srcCompat="@drawable/logosplscr" />
-    </com.google.android.material.navigation.NavigationView>
-
-
-</androidx.drawerlayout.widget.DrawerLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

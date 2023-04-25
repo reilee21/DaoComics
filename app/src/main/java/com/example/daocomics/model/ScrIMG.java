@@ -1,18 +1,10 @@
 package com.example.daocomics.model;
 
 public class ScrIMG {
-    int id;
     String imgName;
     int idChap;
     String url;
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
 
     public String getImgName() {
         return imgName;
@@ -38,8 +30,7 @@ public class ScrIMG {
         this.url = url;
     }
 
-    public ScrIMG(int id, String imgName, int idChap, String url) {
-        this.id = id;
+    public ScrIMG(String imgName, int idChap, String url) {
         this.imgName = imgName;
         this.idChap = idChap;
         this.url = url;

@@ -2,7 +2,6 @@ package com.example.daocomics.model;
 
 public class Chapter {
     String chapterName;
-    int idComic;
 
     public String getDate() {
         return date;
@@ -13,6 +12,16 @@ public class Chapter {
     }
 
     String date;
+
+    public int getIdComic() {
+        return idComic;
+    }
+
+    public void setIdComic(int idComic) {
+        this.idComic = idComic;
+    }
+
+    int idComic;
 
     public String getChapterName() {
         return chapterName;
