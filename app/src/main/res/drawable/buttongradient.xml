@@ -31,11 +31,11 @@
                         android:gradientRadius="50"
                         >
                         <item
-                            android:color="#1E1E1E"
+                            android:color="@color/Black_Black"
                             android:offset="0.223"
                             />
                         <item
-                            android:color="#6A5553"
+                            android:color="@color/Crystal_Blue"
                             android:offset="0.969"
                             />
                     </gradient>
