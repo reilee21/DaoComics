@@ -29,39 +29,56 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
-    <EditText
-        android:layout_marginLeft="32dp"
-        android:layout_marginRight="32dp"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
+    <com.google.android.material.textfield.TextInputLayout
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/conMeo"
-        android:background="@drawable/input"
-        android:hint="Tài khoản"
-        android:paddingLeft="16dp"
-        android:textColor="@color/black"
-        android:textColorHint="#DF808080"
-        android:id="@+id/edLoginUsername"
-
-        />
-    <EditText
-        android:layout_marginTop="16dp"
+        app:boxStrokeWidthFocused="3dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginLeft="32dp"
         android:layout_marginRight="32dp"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        app:boxStrokeErrorColor="@color/do2"
+        android:hint="Tài khoản hoặc email"
+        app:hintTextColor="@color/xanh2"
+        app:boxStrokeColor="@color/xanh2"
+        android:id="@+id/edLoginUsername"
+        >
+    <com.google.android.material.textfield.TextInputEditText
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        />
+    </com.google.android.material.textfield.TextInputLayout>
+    <com.google.android.material.textfield.TextInputLayout
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/edLoginUsername"
-        android:background="@drawable/input"
+        app:boxStrokeWidthFocused="3dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="32dp"
+        android:layout_marginRight="32dp"
+        android:layout_marginTop="8dp"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        app:boxStrokeErrorColor="@color/do2"
         android:hint="Mật khẩu"
-        android:paddingLeft="16dp"
-        android:textColor="@color/black"
-        android:textColorHint="#DF808080"
+        app:hintTextColor="@color/xanh2"
+        app:boxStrokeColor="@color/xanh2"
         android:id="@+id/edLoginPassword"
-        android:inputType="textPassword"
-        />
+        app:endIconMode="password_toggle"
+        >
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            android:inputType="textPassword"
+            />
+    </com.google.android.material.textfield.TextInputLayout>
+
     <CheckBox
         android:layout_width="match_parent"
         android:layout_height="48dp"

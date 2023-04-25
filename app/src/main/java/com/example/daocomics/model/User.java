@@ -6,6 +6,10 @@ public class User implements Serializable {
 
     String Name;
     String PassW;
+    String UsName;
+    String PhoneNb;
+    String Email;
+
 
     public String getUsName() {
         return UsName;
@@ -15,7 +19,6 @@ public class User implements Serializable {
         UsName = usName;
     }
 
-    String UsName;
 
     public String getName() {
         return Name;
@@ -49,27 +52,20 @@ public class User implements Serializable {
         Email = email;
     }
 
-    public String getAvatar() {
-        return Avatar;
-    }
 
-    public void setAvatar(String avatar) {
-        Avatar = avatar;
-    }
 
-    String PhoneNb;
-    String Email;
-    String Avatar;
+
+
+
 
     public User() {
     }
 
-    public User(String usName, String name, String passW, String phoneNb, String email, String avatar) {
-        UsName = usName;
-        Name = name;
-        PassW = passW;
-        PhoneNb = phoneNb;
-        Email = email;
-        Avatar = avatar;
+    public User(String name, String usName, String passW, String phoneNb, String email) {
+        this.UsName = usName;
+        this.Name = name;
+        this.PassW = passW;
+        this.PhoneNb = phoneNb;
+        this.Email = email;
     }
 }
