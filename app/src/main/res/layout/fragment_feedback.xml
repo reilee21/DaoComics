@@ -8,7 +8,7 @@
 
     <TextView
         android:id="@+id/textView15"
-        android:layout_width="350dp"
+        android:layout_width="500sp"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:text="Tiêu đề"
@@ -27,24 +27,15 @@
         android:layout_marginTop="20dp"
         android:text="Phản hồi ý kiến"
         android:textColor="@color/xanhduong"
+        android:textSize="30sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageView
-        android:id="@+id/imageView8"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="20dp"
-        android:src="@drawable/baseline_arrow_back_24"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <TextView
         android:id="@+id/textView14"
-        android:layout_width="350dp"
+        android:layout_width="500sp"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
         android:text="Tiêu đề"
@@ -57,7 +48,7 @@
 
     <EditText
         android:id="@+id/editText"
-        android:layout_width="350dp"
+        android:layout_width="500sp"
         android:layout_height="40dp"
         android:layout_marginTop="10dp"
         android:background="@drawable/bg_edt"
@@ -70,8 +61,8 @@
 
     <EditText
         android:id="@+id/editText2"
-        android:layout_width="350dp"
-        android:layout_height="300dp"
+        android:layout_width="500sp"
+        android:layout_height="400sp"
         android:background="@drawable/bg_edt"
         android:hint="Nhập nội dụng"
         android:textAlignment="center"
