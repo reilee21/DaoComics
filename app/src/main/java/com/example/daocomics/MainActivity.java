@@ -1,10 +1,7 @@
 package com.example.daocomics;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.viewpager2.widget.ViewPager2;
@@ -12,39 +9,37 @@ import androidx.viewpager2.widget.ViewPager2;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.example.daocomics.adapter.ComicAdapter;
+import com.example.daocomics.adapter.ComicsAdapter;
+import com.example.daocomics.adapter.FavComicAdapter;
 import com.example.daocomics.adapter.ScreenSlidePageAdapter;
 import com.example.daocomics.databinding.ActivityMainBinding;
-import com.example.daocomics.databinding.ActivityRegisterBinding;
 import com.example.daocomics.model.Comic;
+import com.example.daocomics.model.FavComic;
 import com.example.daocomics.model.User;
 import com.example.daocomics.ui.login_register.LoginActivity;
 import com.example.daocomics.ui.setting.SettingActivity;
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.android.material.navigation.NavigationBarView;
 import com.google.android.material.navigation.NavigationView;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
-import com.google.gson.Gson;
+import com.squareup.picasso.Picasso;
 
-import org.w3c.dom.Text;
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     ActivityMainBinding binding;
@@ -53,8 +48,12 @@ public class MainActivity extends AppCompatActivity {
     FirebaseAuth auth;
     FirebaseUser firebaseUser;
     User user;
-    SharedPreferences shget;
+
     private DrawerLayout drawerLayout;
+    ComicsAdapter comicsAdapter;
+
+    FavComicAdapter favComicAdapter;
+    ArrayList<FavComic> favComics;
 
 
     @Override
@@ -63,29 +62,22 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        shget = this.getSharedPreferences(Utils.SHARE_PREFERENCES_APP, Context.MODE_PRIVATE);
-        editor = shget.edit();
+
         drawerLayout= findViewById(R.id.drawer_layout);
         firestore = FirebaseFirestore.getInstance();
-
+        favComics = new ArrayList<>();
         setupMenu();
         setupFragment();
         setupSetting();
         //get user firebase login
         auth = FirebaseAuth.getInstance();
         firebaseUser = auth.getCurrentUser();
-        getUserProgfile();
 
+        loadInfo();
+        getComicfromFireBase();
+        getFavComicfromFireBase();
     }
-    private void getUserProgfile() {
 
-        TextView t = binding.drawerSetting.getHeaderView(0).findViewById(R.id.tvUsName_setting);
-        if(!shget.getString(Utils.ACCOUNT_RMB_USER_NAME,"").isEmpty())
-            t.setText(shget.getString(Utils.ACCOUNT_RMB_USER_NAME,""));
-    }
-    public User getUser(){
-        return user;
-    }
     private void setupSetting() {
         // View profile
         Button b = binding.drawerSetting.getHeaderView(0).findViewById(R.id.btn_ViewProfile);
@@ -103,9 +95,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                auth.signOut();
-               editor.remove(Utils.ACCOUNT_RMB_USER_NAME);
-               editor.remove(Utils.ACCOUNT_RMB_USER_PHONENB);
-               editor.commit();
                startActivity(new Intent(MainActivity.this,LoginActivity.class));
 
             }
@@ -197,6 +186,61 @@ public class MainActivity extends AppCompatActivity {
             }
         };
     }
+    private void getComicfromFireBase() {
+        comicsAdapter = new ComicsAdapter(this);
+        FirebaseFirestore.getInstance().collection("Comics").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+            @Override
+            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                List<DocumentSnapshot> documentSnapshotList = queryDocumentSnapshots.getDocuments();
+                for (DocumentSnapshot dc : documentSnapshotList)
+                {
+                    Comic comic = dc.toObject(Comic.class);
+                    comicsAdapter.Add(comic);
+                }
+            }
+        });
+    }
+    public void getFavComicfromFireBase() {
+        favComicAdapter = new FavComicAdapter(MainActivity.this);
+        FirebaseFirestore.getInstance().collection("FavComic").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+            @Override
+            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                List<DocumentSnapshot> documentSnapshotList = queryDocumentSnapshots.getDocuments();
+                for (DocumentSnapshot dc : documentSnapshotList)
+                {
+                   ArrayList<Comic> temp =  comicsAdapter.getComicsList();
+                   for(Comic c : temp){
+                       if(dc.get("ComicName").toString().equals(c.getName())) {
+                           favComicAdapter.Add(c);
+                       }
+                   }
+                }
+            }
+        });
+    }
+    private void loadInfo() {
+        FirebaseFirestore.getInstance().collection("Users").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+            @Override
+            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots){
+                    String s = documentSnapshot.getString("email");
+                    if(firebaseUser.getEmail().equals(s)){
+                        TextView t = binding.drawerSetting.getHeaderView(0).findViewById(R.id.tvUsName_setting);
+                        t.setText(documentSnapshot.getString("name"));
+                        ImageView img = binding.drawerSetting.getHeaderView(0).findViewById(R.id.img_Ava_setting);
+                        Glide.with(MainActivity.this).load(firebaseUser.getPhotoUrl()).error(R.drawable.baseline_sentiment_very_satisfied_24).into(img);
+                    }
+                }
+            }
+        });
+    }
+
+    public ComicsAdapter getComicsAdapter(){
+        return comicsAdapter;
+    }
+    public FavComicAdapter getFavComicAdapter(){
+
+        return favComicAdapter;}
 
 
 }

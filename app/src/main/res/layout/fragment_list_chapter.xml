@@ -6,12 +6,15 @@
     tools:context=".ui.comic.ListChapterFragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <ListView
+    <androidx.recyclerview.widget.RecyclerView
+
         android:id="@+id/lsvListChap"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp"
         >
 
-    </ListView>
+    </androidx.recyclerview.widget.RecyclerView>
 
 </FrameLayout>

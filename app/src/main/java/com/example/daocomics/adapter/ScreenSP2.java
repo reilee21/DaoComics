@@ -1,5 +1,7 @@
 package com.example.daocomics.adapter;
 
+import android.os.Bundle;
+
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
@@ -20,12 +22,16 @@ public class ScreenSP2 extends FragmentStateAdapter {
     @NonNull
     @Override
     public Fragment createFragment(int position) {
+
         switch (position){
             case 0:
+
                 return new DesciptonFragment();
             case 1:
+
                 return new ListChapterFragment();
             default:
+
                 return  new DesciptonFragment();
         }
     }

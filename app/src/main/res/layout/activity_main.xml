@@ -55,6 +55,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="50dp"
+            android:layout_marginBottom="54dp"
             />
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/navMenu"
@@ -71,7 +72,7 @@
     <com.google.android.material.navigation.NavigationView
         android:layout_marginTop="24dp"
         android:id="@+id/drawerSetting"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="end"
         android:fitsSystemWindows="true"
@@ -79,8 +80,9 @@
         app:menu="@menu/menu_setting_drawer"
         android:background="@drawable/corner"
         app:headerLayout="@layout/nav_header_setting"
-        android:paddingLeft="8dp"
+        android:paddingLeft="16dp"
         android:paddingRight="8dp"
+        android:layout_marginLeft="100dp"
         app:itemTextAppearance="@style/CustomText"
 
         >
@@ -90,7 +92,7 @@
             android:layout_gravity="bottom"
             android:layout_marginLeft="40dp"
             android:layout_marginRight="40dp"
-            android:layout_marginBottom="60dp"
+            android:layout_marginBottom="80dp"
             android:backgroundTint="@color/xanhduong"
             android:text="Đăng xuất"
             android:textColor="@color/white"
