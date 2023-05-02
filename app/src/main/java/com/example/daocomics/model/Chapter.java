@@ -1,27 +1,20 @@
 package com.example.daocomics.model;
 
-public class Chapter {
+import java.io.Serializable;
+
+public class Chapter implements Serializable {
     String chapterName;
 
-    public String getDate() {
-        return date;
+    public String getComicName() {
+        return comicName;
     }
 
-    public void setDate(String date) {
-        this.date = date;
+    public void setComicName(String comicName) {
+        this.comicName = comicName;
     }
 
-    String date;
+    String comicName;
 
-    public int getIdComic() {
-        return idComic;
-    }
-
-    public void setIdComic(int idComic) {
-        this.idComic = idComic;
-    }
-
-    int idComic;
 
     public String getChapterName() {
         return chapterName;
@@ -36,9 +29,9 @@ public class Chapter {
     public Chapter() {
     }
 
-    public Chapter(String chapterName,String date) {
-        this.date = date;
+    public Chapter(String chapterName,String comicName) {
         this.chapterName = chapterName;
+        this.comicName = comicName;
 
     }
 }

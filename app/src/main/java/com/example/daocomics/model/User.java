@@ -52,12 +52,6 @@ public class User implements Serializable {
         Email = email;
     }
 
-
-
-
-
-
-
     public User() {
     }
 

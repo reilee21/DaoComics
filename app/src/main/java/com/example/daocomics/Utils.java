@@ -12,13 +12,11 @@ import java.io.InputStream;
 
 public class Utils {
     public static final String SHARE_PREFERENCES_APP = "share_preferences_app";
-    public static final String KEY_USER = "key_user" ;
-    public static final String KEY_USER_PR0FILE ="key_user_profile" ;
 
-    public static  String ACCOUNT_RMB_US_LOGIN ="account_rmb_us_login" ;
-    public static  String ACCOUNT_RMB_PASS ="account_rmb_pass" ;
-    public static String ACCOUNT_RMB_USER_NAME = "account_rmb_user_name";
-    public static String ACCOUNT_RMB_USER_PHONENB = "account_rmb_user_phonenb";
+    public static  String ACCOUNT_RMB_US_LOGIN = "account_rmb_us_login" ;
+    public static  String ACCOUNT_RMB_PASS = "account_rmb_pass" ;
+
+    public static final int MY_REQUEST_CODE = 10 ;
 
 
     public static Bitmap convertFromAssets(Context context, String nameImage)

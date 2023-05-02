@@ -72,6 +72,7 @@ public class LoginActivity extends AppCompatActivity {
         String uspSaved = sharedPreferences.getString(Utils.ACCOUNT_RMB_PASS, "");
         if(usnSaved.isEmpty())
             return;
+        binding.cbGhiNhoDN.setChecked(true);
         binding.edLoginUsername.getEditText().setText(usnSaved);
         binding.edLoginPassword.getEditText().setText(uspSaved);
     }
@@ -91,13 +92,11 @@ public class LoginActivity extends AppCompatActivity {
                     editor.putString(Utils.ACCOUNT_RMB_PASS, savedLUSp);
                     editor.commit();
                 }
-                else{
+                else if(!binding.cbGhiNhoDN.isChecked()){
                     editor.remove(Utils.ACCOUNT_RMB_US_LOGIN);
                     editor.remove(Utils.ACCOUNT_RMB_PASS);
                     editor.commit();
                 }
-
-
             }
         });
     }
@@ -159,14 +158,9 @@ public class LoginActivity extends AppCompatActivity {
                 for (QueryDocumentSnapshot documentSnapshot : task.getResult())
                 {
                     if(documentSnapshot.getString("email").equals(mail)) {
-                        String name = documentSnapshot.getString("name"); String passW =  documentSnapshot.getString("passW"); String phoneNb =  documentSnapshot.getString("phoneNb"); String usName =  documentSnapshot.getString("usName"); String avatar =  documentSnapshot.getString("avatar");
-                        editor.putString(Utils.ACCOUNT_RMB_USER_NAME, name);
-                        editor.putString(Utils.ACCOUNT_RMB_USER_PHONENB, phoneNb);
-                        editor.commit();
                         Intent i = new Intent(LoginActivity.this,MainActivity.class);
                         LoginActivity.this.finish();
                         startActivity(i);
-
 
                     }
                 }

@@ -9,7 +9,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,8 +18,7 @@ import android.widget.ImageView;
 import com.example.daocomics.MainActivity;
 import com.example.daocomics.R;
 import com.example.daocomics.Utils;
-import com.example.daocomics.adapter.ComicAdapter;
-import com.example.daocomics.databinding.FragmentExploreBinding;
+import com.example.daocomics.adapter.ComicsAdapter;
 import com.example.daocomics.model.Comic;
 
 import java.util.ArrayList;
@@ -30,9 +28,9 @@ public class ExploreFragment extends Fragment {
     EditText search;
     ImageView img;
     RecyclerView rcv;
-    ComicAdapter comicAdapter;
-    ArrayList<Comic> comicsList,temp;
+    ArrayList<Comic> comicsList,comicsListtemp;
     GridLayoutManager grv;
+    ComicsAdapter comicsAdapter, newAdapter;
 
 
     Context ct;
@@ -46,14 +44,19 @@ public class ExploreFragment extends Fragment {
          search = v.findViewById(R.id.edSearch);
          img = v.findViewById(R.id.imgExploreLuffy);
          rcv = v.findViewById(R.id.rcvSearchList);
-        img.setImageBitmap(Utils.convertFromAssets(getActivity(), "explore.png"));
+         img.setImageBitmap(Utils.convertFromAssets(getActivity(), "explore.png"));
+         MainActivity temp = (MainActivity) getActivity();
+         comicsAdapter = temp.getComicsAdapter();
 
-         comicsList = new ArrayList<>();
-         addDataSample();
-        temp = new ArrayList<>();
-        onSearch();
-        comicAdapter = new ComicAdapter(temp);
-        grv = new GridLayoutManager(getActivity(),2);
+         comicsList = comicsAdapter.getComicsList();
+
+         comicsListtemp = new ArrayList<>();
+
+         onSearch();
+
+         newAdapter = new ComicsAdapter(temp);
+         newAdapter.setComicsList(comicsListtemp);
+         grv = new GridLayoutManager(getActivity(),2);
 
         return v;
     }
@@ -76,31 +79,21 @@ public class ExploreFragment extends Fragment {
                 String s = search.getText().toString();
                 if(s.length()>0) {
                     img.setImageBitmap(Utils.convertFromAssets(getActivity(), "white.png"));
-                    if(temp.size()!=comicsList.size()) {
+                    if(comicsListtemp.size()!=comicsList.size()) {
                         for (Comic c : comicsList) {
-                            temp.add(c);
+                            comicsListtemp.add(c);
                         }
                     }
-                    comicAdapter.SortComic(comicsList,s);
+                    newAdapter.SortComic(comicsList,s);
                 }
                 else {
-                    temp.clear();
+                    comicsListtemp.clear();
                     img.setImageBitmap(Utils.convertFromAssets(getActivity(), "explore.png"));
                 }
-                rcv.setAdapter(comicAdapter);
+                rcv.setAdapter(newAdapter);
                 rcv.setLayoutManager(grv);
             }
         });
     }
-    private void addDataSample() {
 
-        comicsList.add(new Comic("Solo leveling","Solo cung Jinwoo","https://www.asurascans.com/wp-content/uploads/2021/03/soloLevelingCover02.png","Action"));
-        comicsList.add(new Comic("The Dark Mage’s Return to Enlistment","Solo cung Jinwoo","https://www.asurascans.com/wp-content/uploads/2023/03/resource_1Photoauto_scaleLevel3width_1000.jpg","Action"));
-        comicsList.add(new Comic("Demonic Evolution","Solo cung Jinwoo","https://www.asurascans.com/wp-content/uploads/2023/02/tIEELUSJN.webp-t.w640-vert-copyCUnetauto_scaleLevel3width-1000.jpg","Action"));
-        comicsList.add(new Comic("Existence","Solo cung Jinwoo","https://www.asurascans.com/wp-content/uploads/2022/08/existenceCover01.png","Action"));
-        comicsList.add(new Comic("Never Die Extra","Solo cung Jinwoo","https://www.asurascans.com/wp-content/uploads/2022/09/dieExtraCover03.png","Action"));
-        comicsList.add(new Comic("Ending Maker","Solo cung Jinwoo","https://www.asurascans.com/wp-content/uploads/2022/05/ending_maker_01.jpg","Action"));
-        comicsList.add(new Comic("My Healing Game","Solo cung Jinwoo","https://www.asurascans.com/wp-content/uploads/2022/08/MyHealingGame04.png","Action"));
-
-    }
 }

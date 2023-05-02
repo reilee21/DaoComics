@@ -17,15 +17,23 @@ import com.example.daocomics.R;
 import com.example.daocomics.model.Comic;
 import com.example.daocomics.ui.comic.ComicDetailsActivity;
 
+import org.checkerframework.checker.units.qual.A;
+
 import java.util.ArrayList;
 
 public class FavComicAdapter extends RecyclerView.Adapter<FavComicAdapter.ComicViewHolder> {
     ArrayList<Comic> arrayList;
     Context ct;
 
-    public FavComicAdapter(ArrayList<Comic> arrayList) {
-        this.arrayList = arrayList;
+    public FavComicAdapter(Context ct) {
+        this.ct = ct;
+        arrayList = new ArrayList<>();
     }
+    public void Add(Comic item){
+        arrayList.add(item);
+        notifyDataSetChanged();
+    }
+    public ArrayList<Comic> getFavList(){return arrayList;}
 
     @NonNull
     @Override

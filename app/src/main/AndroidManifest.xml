@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.INTERNET" />
-
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -19,11 +19,11 @@
             android:exported="false" />
         <activity
             android:name=".ui.comic_read.ReadComicActivity"
-            android:exported="true"></activity>
+            android:exported="true" />
         <activity
             android:name=".ui.comic.ComicDetailsActivity"
             android:exported="true"
-            android:theme="@style/Theme.DaoComics3"></activity>
+            android:theme="@style/Theme.DaoComics3" />
         <activity
             android:name=".ui.login_register.RegisterActivity"
             android:exported="false"
