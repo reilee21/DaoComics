@@ -1,6 +1,7 @@
 package com.example.daocomics.ui.tabmain;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
@@ -12,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.daocomics.MainActivity;
@@ -19,8 +21,10 @@ import com.example.daocomics.R;
 import com.example.daocomics.Utils;
 import com.example.daocomics.adapter.ComicsAdapter;
 import com.example.daocomics.ui.comic_read.TranslateAnimationUtil;
+import com.example.daocomics.ui.genre.GenreActivity;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.button.MaterialButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -33,16 +37,17 @@ public class HomeFragment extends Fragment{
     TextView tvHello;
     MainActivity temp;
     FirebaseUser firebaseUser;
+    View v;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.fragment_home, container, false);
+         v = inflater.inflate(R.layout.fragment_home, container, false);
         rcvHome = v.findViewById(R.id.rcvHome);
         tvHello = v.findViewById(R.id.tvHello);
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         loadInfo();
-
+        event();
 
         temp = (MainActivity) getActivity();
         comicsAdapter = temp.getComicsAdapter();
@@ -52,6 +57,28 @@ public class HomeFragment extends Fragment{
         // Inflate the layout for this fragment
 
         return v;
+    }
+
+    private void event() {
+        Button btTL = v.findViewById(R.id.btnTheLoai);
+        MaterialButton b1 = v.findViewById(R.id.btnCateAct);
+        MaterialButton b2 = v.findViewById(R.id.btnCateCom);
+        MaterialButton b3 = v.findViewById(R.id.btnCateHor);
+        MaterialButton b4 = v.findViewById(R.id.btnCateRom);
+
+        btTL.setOnClickListener(view -> intent(1,""));
+        b1.setOnClickListener(v->intent(2,"Hành động"));
+        b2.setOnClickListener(v->intent(2,"Hài kịch"));
+        b3.setOnClickListener(v->intent(2,"Kinh dị"));
+        b4.setOnClickListener(v->intent(2,"Tình cảm"));
+    }
+
+    private void intent(int x,String genre) {
+        Intent i = new Intent(getActivity(), GenreActivity.class);
+        i.putExtra("fragmentG",x);
+        i.putExtra("genre",genre);
+        startActivity(i);
+
     }
 
     private void loadInfo() {

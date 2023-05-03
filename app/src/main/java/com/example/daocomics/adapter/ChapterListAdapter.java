@@ -25,6 +25,12 @@ import java.util.List;
 public class ChapterListAdapter extends RecyclerView.Adapter<ChapterListAdapter.ChapterListViewHolder> {
     private Context ct;
     private ArrayList<Chapter> arr;
+    public Chapter getFirst(){
+        for (Chapter c : arr)
+            if(c.getChapterName().equals("Chapter 1"))
+                return c;
+        return null;
+    }
 
     public void addChapter(Chapter chapter){
         arr.add(chapter);

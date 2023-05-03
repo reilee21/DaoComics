@@ -25,6 +25,7 @@ import com.example.daocomics.databinding.ActivityMainBinding;
 import com.example.daocomics.model.Comic;
 import com.example.daocomics.model.FavComic;
 import com.example.daocomics.model.User;
+import com.example.daocomics.ui.genre.GenreActivity;
 import com.example.daocomics.ui.login_register.LoginActivity;
 import com.example.daocomics.ui.setting.SettingActivity;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -106,6 +107,9 @@ public class MainActivity extends AppCompatActivity {
                 Intent i = new Intent(MainActivity.this, SettingActivity.class);
                 int x;
                 switch (item.getItemId()){
+                    case R.id.genre:
+                        startActivity(new Intent(MainActivity.this, GenreActivity.class));
+                        return true;
                     case R.id.changePass:
                         x = 2;
                         i.putExtra("fragment",x);

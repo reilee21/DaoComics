@@ -33,7 +33,6 @@ public class FavComicAdapter extends RecyclerView.Adapter<FavComicAdapter.ComicV
         arrayList.add(item);
         notifyDataSetChanged();
     }
-    public ArrayList<Comic> getFavList(){return arrayList;}
 
     @NonNull
     @Override

@@ -3,6 +3,7 @@ package com.example.daocomics.ui.comic_read;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
@@ -63,7 +64,72 @@ public class ReadComicActivity extends AppCompatActivity {
 
 
     private void setupActionbar() {
+        binding.btnNextChap.setOnClickListener(v-> nextC());
+        binding.btnPreChap.setOnClickListener(v-> preC());
+
         binding.textView3.setText(chapter.getChapterName());
+
+        if(chapter.getPreChap().isEmpty()) {
+            binding.btnPreChap.setColorFilter(getResources().getColor(R.color.xam1));
+            binding.btnPreChap.setEnabled(false);
+        }
+        else {
+            binding.btnPreChap.setColorFilter(getResources().getColor(R.color.xanhduong));
+            binding.btnPreChap.setEnabled(true);
+        }
+
+        if(chapter.getNextChap().isEmpty()) {
+            binding.btnNextChap.setColorFilter(getResources().getColor(R.color.xam1));
+            binding.btnNextChap.setEnabled(false);
+        }
+        else {
+            binding.btnNextChap.setColorFilter(getResources().getColor(R.color.xanhduong));
+            binding.btnNextChap.setEnabled(true);
+        }
+
+    }
+
+    private void preC() {
+        FirebaseFirestore.getInstance().collection("Chapter").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+            @Override
+            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                List<DocumentSnapshot> documentSnapshotList = queryDocumentSnapshots.getDocuments();
+                for (DocumentSnapshot dc : documentSnapshotList)
+                {
+                    if(chapter.getPreChap().equals(dc.getId()))
+                    {
+                        Chapter pre = dc.toObject(Chapter.class);
+                        Intent i = new Intent(ReadComicActivity.this, ReadComicActivity.class);
+                        Bundle b = new Bundle();
+                        b.putSerializable("chapter",pre);
+                        i.putExtras(b);
+                        ReadComicActivity.this.finish();
+                        startActivity(i);
+                    }
+                }
+            }
+        });
+    }
+
+    private void nextC() {
+        FirebaseFirestore.getInstance().collection("Chapter").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+            @Override
+            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                List<DocumentSnapshot> documentSnapshotList = queryDocumentSnapshots.getDocuments();
+                for (DocumentSnapshot dc : documentSnapshotList)
+                {
+                    if(chapter.getNextChap().equals(dc.getId())) {
+                        Chapter next = dc.toObject(Chapter.class);
+                        Intent i = new Intent(ReadComicActivity.this, ReadComicActivity.class);
+                        Bundle b = new Bundle();
+                        b.putSerializable("chapter",next);
+                        i.putExtras(b);
+                        ReadComicActivity.this.finish();
+                        startActivity(i);
+                    }
+                }
+            }
+        });
     }
 
     private void getChapter() {
