@@ -39,7 +39,7 @@ public class ReadComicActivity extends AppCompatActivity {
 
         getChapter();
         setAdapter();
-        getImgToRead();
+
 
         //event
         event();
@@ -49,11 +49,9 @@ public class ReadComicActivity extends AppCompatActivity {
     private void setAdapter() {
         binding.rcvRead.setHasFixedSize(false);
         binding.rcvRead.setLayoutManager(new LinearLayoutManager(this));
-
-
         adapter = new ReadAdapter(this);
+        getImgToRead();
         binding.rcvRead.setAdapter(adapter);
-
         binding.rcvRead.setOnTouchListener(new TranslateAnimationUtil(this,binding.actionBar));
 
     }
@@ -147,13 +145,10 @@ public class ReadComicActivity extends AppCompatActivity {
                 List<DocumentSnapshot> documentSnapshotList = queryDocumentSnapshots.getDocuments();
                 for (DocumentSnapshot dc : documentSnapshotList)
                 {
-                    String chap = dc.get("chapterName").toString().trim();
-                    String comicname = dc.get("comicName").toString().trim();
-                    if(chap.equals(chapter.getChapterName()) && comicname.equals(chapter.getComicName())) {
+                    if(dc.get("chapterID").toString().equals(chapter.getId())) {
                         ImgChap img = dc.toObject(ImgChap.class);
                         adapter.Add(img);
                     }
-
                 }
             }
         });
