@@ -220,6 +220,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+
     public ComicsAdapter getComicsAdapter(){
         return comicsAdapter;
     }
