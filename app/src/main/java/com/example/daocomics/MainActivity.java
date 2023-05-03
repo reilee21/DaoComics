@@ -52,8 +52,6 @@ public class MainActivity extends AppCompatActivity {
 
     private DrawerLayout drawerLayout;
     ComicsAdapter comicsAdapter;
-
-    FavComicAdapter favComicAdapter;
     ArrayList<FavComic> favComics;
 
 
@@ -76,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
 
         loadInfo();
         getComicfromFireBase();
-        getFavComicfromFireBase();
+
     }
 
     private void setupSetting() {
@@ -204,24 +202,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
-    public void getFavComicfromFireBase() {
-        favComicAdapter = new FavComicAdapter(MainActivity.this);
-        FirebaseFirestore.getInstance().collection("FavComic").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-            @Override
-            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                List<DocumentSnapshot> documentSnapshotList = queryDocumentSnapshots.getDocuments();
-                for (DocumentSnapshot dc : documentSnapshotList)
-                {
-                   ArrayList<Comic> temp =  comicsAdapter.getComicsList();
-                   for(Comic c : temp){
-                       if(dc.get("ComicName").toString().equals(c.getName())) {
-                           favComicAdapter.Add(c);
-                       }
-                   }
-                }
-            }
-        });
-    }
+
     private void loadInfo() {
         FirebaseFirestore.getInstance().collection("Users").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
@@ -242,9 +223,5 @@ public class MainActivity extends AppCompatActivity {
     public ComicsAdapter getComicsAdapter(){
         return comicsAdapter;
     }
-    public FavComicAdapter getFavComicAdapter(){
-
-        return favComicAdapter;}
-
 
 }

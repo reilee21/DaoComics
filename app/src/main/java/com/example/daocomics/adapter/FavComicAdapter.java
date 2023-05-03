@@ -22,6 +22,10 @@ import org.checkerframework.checker.units.qual.A;
 import java.util.ArrayList;
 
 public class FavComicAdapter extends RecyclerView.Adapter<FavComicAdapter.ComicViewHolder> {
+    public ArrayList<Comic> getArrayList() {
+        return arrayList;
+    }
+
     ArrayList<Comic> arrayList;
     Context ct;
 
