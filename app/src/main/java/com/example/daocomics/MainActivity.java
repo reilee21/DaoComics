@@ -76,6 +76,7 @@ public class MainActivity extends AppCompatActivity {
 
         loadInfo();
         getComicfromFireBase();
+
         getFavComicfromFireBase();
     }
 
@@ -210,14 +211,20 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
                 List<DocumentSnapshot> documentSnapshotList = queryDocumentSnapshots.getDocuments();
+                favComicAdapter.getArrayList().clear();
                 for (DocumentSnapshot dc : documentSnapshotList)
                 {
-                   ArrayList<Comic> temp =  comicsAdapter.getComicsList();
-                   for(Comic c : temp){
-                       if(dc.get("ComicName").toString().equals(c.getName())) {
-                           favComicAdapter.Add(c);
-                       }
-                   }
+
+                    if(firebaseUser.getUid().equals(dc.get("UsName"))){
+                        Log.d("TAG", "onSuccess: ");
+                        ArrayList<Comic> temp =  comicsAdapter.getComicsList();
+                        for(Comic c : temp){
+                            if(dc.get("ComicName").toString().equals(c.getName())) {
+                                favComicAdapter.Add(c);
+                            }
+                        }
+                    }
+
                 }
             }
         });
@@ -243,7 +250,6 @@ public class MainActivity extends AppCompatActivity {
         return comicsAdapter;
     }
     public FavComicAdapter getFavComicAdapter(){
-
         return favComicAdapter;}
 
 
