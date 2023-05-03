@@ -20,6 +20,8 @@ import com.example.daocomics.ui.comic.ComicDetailsActivity;
 import com.example.daocomics.ui.comic_read.ReadComicActivity;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class ChapterListAdapter extends RecyclerView.Adapter<ChapterListAdapter.ChapterListViewHolder> {
@@ -34,6 +36,12 @@ public class ChapterListAdapter extends RecyclerView.Adapter<ChapterListAdapter.
 
     public void addChapter(Chapter chapter){
         arr.add(chapter);
+        Collections.sort(arr, new Comparator<Chapter>() {
+            @Override
+            public int compare(Chapter chapter, Chapter t1) {
+                return chapter.getChapterName().compareTo(t1.getChapterName());
+            }
+        });
         notifyDataSetChanged();
     }
 

@@ -43,7 +43,15 @@ public class Chapter implements Serializable {
         this.chapterName = chapterName;
     }
 
+    String id;
 
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public Chapter() {
     }
