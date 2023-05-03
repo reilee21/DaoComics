@@ -51,7 +51,7 @@ public class ComicDetailsActivity extends AppCompatActivity{
     ChapterListAdapter chapterListAdapter;
     FirebaseUser user;
     private FirebaseFirestore db;
-    ArrayList<FavComic> favComics;
+
 
 
     @Override
@@ -110,8 +110,8 @@ public class ComicDetailsActivity extends AppCompatActivity{
                 }
             }
         });
-
     }
+
 
     private void getComicOnclicked() {
         Bundle b = getIntent().getExtras();
@@ -125,6 +125,10 @@ public class ComicDetailsActivity extends AppCompatActivity{
     public String getComicName(){return  comic.getName();}
     public ChapterListAdapter GetChapterListAdapter() {
         return chapterListAdapter;
+    }
+    public Chapter getFirstChap(){
+        Chapter c = new Chapter();
+        return chapterListAdapter.getFirst();
     }
 
     void setupFragment(){

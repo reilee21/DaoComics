@@ -11,8 +11,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.daocomics.R;
+import com.example.daocomics.adapter.ChapterListAdapter;
 import com.example.daocomics.adapter.ReadAdapter;
 import com.example.daocomics.model.Chapter;
 import com.example.daocomics.model.ImgChap;
@@ -27,13 +29,15 @@ import java.util.List;
 public class DesciptonFragment extends Fragment {
     Context ct;
     TextView tvDescrip;
+    ComicDetailsActivity temp;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_descipton, container, false);
         tvDescrip = v.findViewById(R.id.tvDescrip);
-        ComicDetailsActivity temp = (ComicDetailsActivity) getActivity();
+        temp = (ComicDetailsActivity) getActivity();
         ct = temp;
         String descrip = temp.getComicDesciption();
         String comicName = temp.getComicName();
@@ -45,8 +49,12 @@ public class DesciptonFragment extends Fragment {
     }
 
     private void Read(String comicName) {
+        Chapter chapter = temp.getFirstChap();
+         if(chapter == null) {
+             Toast.makeText(getActivity(), "Chưa cập nhật truyện", Toast.LENGTH_SHORT).show();
+             return;
+         }
         Intent i = new Intent(getActivity(), ReadComicActivity.class);
-        Chapter chapter = new Chapter("Chapter 1",comicName);
         Bundle b = new Bundle();
         b.putSerializable("chapter",chapter);
         i.putExtras(b);
