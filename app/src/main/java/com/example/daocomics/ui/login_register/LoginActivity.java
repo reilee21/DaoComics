@@ -102,8 +102,12 @@ public class LoginActivity extends AppCompatActivity {
     public void clicked() {
         binding.btnLogin.setOnClickListener(v->login());
         binding.btnRegis.setOnClickListener(v->register());
+        binding.btQuenMK.setOnClickListener(v->forgotpass());
     }
 
+    private void forgotpass() {
+        startActivity(new Intent(this,ForgotPassWordActivity.class));
+    }
 
     private void register() {
         Intent i = new Intent(this, RegisterActivity.class);
