@@ -23,10 +23,13 @@ import com.example.daocomics.MainActivity;
 import com.example.daocomics.R;
 import com.example.daocomics.ui.login_register.LoginActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.firebase.auth.AuthCredential;
+import com.google.firebase.auth.EmailAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -64,7 +67,7 @@ public class ChangePasswordFragment extends Fragment {
                 @Override
                 public void onComplete(@NonNull Task<Void> task) {
                     if(task.isSuccessful()) {
-                        FirebaseFirestore.getInstance().collection("Users").document(user.getUid()).update("passW",c1);
+                       /* FirebaseFirestore.getInstance().collection("Users").document(user.getUid()).update("passW",c1);*/
                         FirebaseAuth.getInstance().signOut();
                         Toast.makeText(getActivity(), "Đổi mật khẩu thành công", Toast.LENGTH_SHORT).show();
                         getActivity().startActivity(new Intent(getActivity(),LoginActivity.class));
@@ -134,18 +137,24 @@ public class ChangePasswordFragment extends Fragment {
     }
 
     void checkCurPass(String cur){
+        if(cur.length()<8){
+            a.setError("Hãy nhập mật khẩu hiện tại của bạn");
+            return;
+        }
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        FirebaseFirestore.getInstance().collection("Users").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+        AuthCredential credential = EmailAuthProvider.getCredential(user.getEmail(),cur);
+        user.reauthenticate(credential).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
-            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots){
-                    String s = documentSnapshot.getString("email");
-                    if(user.getEmail().equals(s))
-                        if (documentSnapshot.getString("passW").equals(cur))
-                            a.setError(null);
-                }
+            public void onComplete(@NonNull Task<Void> task) {
+                if(task.isSuccessful())
+                    a.setError(null);
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                a.setError("Sai mật khẩu");
             }
         });
-        a.setError("Sai mật khẩu");
+
     }
 }

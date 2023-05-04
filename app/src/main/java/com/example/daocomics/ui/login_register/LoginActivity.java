@@ -10,6 +10,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.MenuItem;
 import android.widget.Button;
@@ -44,7 +46,6 @@ public class LoginActivity extends AppCompatActivity {
     ActivityLoginBinding binding;
 
     SharedPreferences.Editor editor;
-    private  final Gson gson = new Gson();
     SharedPreferences sharedPreferences;
     FirebaseAuth firebaseAuth;
     FirebaseFirestore firestore;
@@ -61,12 +62,12 @@ public class LoginActivity extends AppCompatActivity {
 
         sharedPreferences = getSharedPreferences(Utils.SHARE_PREFERENCES_APP, Context.MODE_PRIVATE);
         editor = sharedPreferences.edit();
-        savedLogin();
+        getsavedLogin();
         clicked();
 
     }
 
-    private void savedLogin() {
+    private void getsavedLogin() {
 
         String usnSaved = sharedPreferences.getString(Utils.ACCOUNT_RMB_US_LOGIN, "");
         String uspSaved = sharedPreferences.getString(Utils.ACCOUNT_RMB_PASS, "");
@@ -75,30 +76,32 @@ public class LoginActivity extends AppCompatActivity {
         binding.cbGhiNhoDN.setChecked(true);
         binding.edLoginUsername.getEditText().setText(usnSaved);
         binding.edLoginPassword.getEditText().setText(uspSaved);
+
+        binding.edLoginUsername.getEditText().addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                binding.cbGhiNhoDN.setChecked(false);
+                binding.edLoginPassword.getEditText().setText(null);
+            }
+        });
+
+
+
     }
 
     public void clicked() {
-
         binding.btnLogin.setOnClickListener(v->login());
         binding.btnRegis.setOnClickListener(v->register());
-        binding.cbGhiNhoDN.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                if(binding.cbGhiNhoDN.isChecked())
-                {
-                    String savedLUSn = binding.edLoginUsername.getEditText().getText().toString().trim();
-                    String savedLUSp = binding.edLoginPassword.getEditText().getText().toString().trim();
-                    editor.putString(Utils.ACCOUNT_RMB_US_LOGIN, savedLUSn);
-                    editor.putString(Utils.ACCOUNT_RMB_PASS, savedLUSp);
-                    editor.commit();
-                }
-                else if(!binding.cbGhiNhoDN.isChecked()){
-                    editor.remove(Utils.ACCOUNT_RMB_US_LOGIN);
-                    editor.remove(Utils.ACCOUNT_RMB_PASS);
-                    editor.commit();
-                }
-            }
-        });
     }
 
 
@@ -115,7 +118,7 @@ public class LoginActivity extends AppCompatActivity {
             firebaseAuth.signInWithEmailAndPassword(usname,pass).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
                 @Override
                 public void onSuccess(AuthResult authResult) {
-                    getUsdataandNext(usname);
+                    getUsdataandNext();
 
                 }
             }).addOnFailureListener(new OnFailureListener() {
@@ -136,7 +139,7 @@ public class LoginActivity extends AppCompatActivity {
                         firebaseAuth.signInWithEmailAndPassword(e,pass).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
                             @Override
                             public void onSuccess(AuthResult authResult) {
-                                getUsdataandNext(e);
+                                getUsdataandNext();
 
                             }
                         }).addOnFailureListener(new OnFailureListener() {
@@ -151,22 +154,11 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
     }
-    private void getUsdataandNext(String mail){
-        firestore.collection("Users").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                for (QueryDocumentSnapshot documentSnapshot : task.getResult())
-                {
-                    if(documentSnapshot.getString("email").equals(mail)) {
-                        Intent i = new Intent(LoginActivity.this,MainActivity.class);
-                        LoginActivity.this.finish();
-                        startActivity(i);
-
-                    }
-                }
-            }
-        });
-
+    private void getUsdataandNext(){
+        savedLogin();
+        Intent i = new Intent(LoginActivity.this,MainActivity.class);
+        LoginActivity.this.finish();
+        startActivity(i);
     }
 
     private boolean checkEmailType(String email){
@@ -180,4 +172,21 @@ public class LoginActivity extends AppCompatActivity {
             return false;
         return pat.matcher(email).matches();
     }
+    void savedLogin(){
+        if(binding.cbGhiNhoDN.isChecked())
+        {
+            String savedLUSn = binding.edLoginUsername.getEditText().getText().toString().trim();
+            String savedLUSp = binding.edLoginPassword.getEditText().getText().toString().trim();
+            editor.putString(Utils.ACCOUNT_RMB_US_LOGIN, savedLUSn);
+            editor.putString(Utils.ACCOUNT_RMB_PASS, savedLUSp);
+            editor.commit();
+        }
+        else if(!binding.cbGhiNhoDN.isChecked()){
+            editor.remove(Utils.ACCOUNT_RMB_US_LOGIN);
+            editor.remove(Utils.ACCOUNT_RMB_PASS);
+            editor.commit();
+        }
+    }
+
+
 }

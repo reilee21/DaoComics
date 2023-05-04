@@ -175,7 +175,7 @@ public class RegisterActivity extends AppCompatActivity {
             return;
         }
 
-        User us = new User(name,username,pass,phone,email);
+        User us = new User(name,username,phone,email);
 
         firebaseAuth.createUserWithEmailAndPassword(email,pass).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
             @Override
