@@ -27,18 +27,22 @@ import java.util.List;
 public class FavouriteFragment extends Fragment {
     RecyclerView rcvFavList;
     FavComicAdapter comicAdapter;
+
     MainActivity temp;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_favourite, container, false);
         rcvFavList = v.findViewById(R.id.rcvFavList);
+
         temp  = (MainActivity)getActivity();
 
         comicAdapter = new FavComicAdapter(getActivity());
         getFavComicfromFireBase();
         rcvFavList.setHasFixedSize(true);
+
         LinearLayoutManager ln = new LinearLayoutManager(getActivity());
         rcvFavList.setLayoutManager(ln);
         rcvFavList.setAdapter(comicAdapter);
@@ -66,4 +70,5 @@ public class FavouriteFragment extends Fragment {
             }
         });
     }
+
 }
